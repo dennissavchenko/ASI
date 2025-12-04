@@ -21,7 +21,7 @@ st.sidebar.header("Input Iris Features Manually")
 def predict(features: list):
     df = pd.DataFrame(features)
     class_id = model.predict(df)
-    return class_id
+    return int(class_id[0])
 
 def probabilities(features: list):
     df = pd.DataFrame(features)
@@ -54,7 +54,7 @@ if st.button("Predict"):
     # Make prediction
     prediction = predict(input)
     st.subheader("🎯 Prediction Result")
-    st.write(f"Predicted Specie: {species_names[prediction[0]]}")
+    st.write(f"Predicted Specie: {species_names[prediction]}")
 
     st.subheader("📊 Prediction Probabilities")
     st.bar_chart(probabilities(input))
