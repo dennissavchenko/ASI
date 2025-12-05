@@ -12,7 +12,7 @@ feature_names = ["sepal length (cm)", "sepal width (cm)", "petal length (cm)", "
 species_names = ["iris-setosa", "iris-versicolor", "iris-virginica"]
 
 # Streamlit UI
-st.title("🪻Iris Species Predictor")
+st.title("🪻Iris Species")
 st.write("This app predicts the species of an iris based on its measurements.")
 
 # Sidebar inputs
