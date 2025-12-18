@@ -1,3 +1,6 @@
+mlflow-skinny
+seaborn
+matplotlib
 streamlit
 pandas
 joblib

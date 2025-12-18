@@ -1,9 +1,11 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import json
+import os
 
 # Load trained model in joblib format
-model = joblib.load("iris_model.joblib")
+model = joblib.load("app/model.joblib")
 
 # Define the feature names manually since the model doesn’t have feature_names_in_
 feature_names = ["sepal length (cm)", "sepal width (cm)", "petal length (cm)", "petal width (cm)"]
@@ -59,3 +61,22 @@ if st.button("Predict"):
     st.subheader("📊 Prediction Probabilities")
     st.bar_chart(probabilities(input))
 
+meta_path = "app/model_meta.json"
+
+meta = None
+
+if os.path.exists(meta_path):
+    with open(meta_path, "r") as f:
+        meta = json.load(f)
+
+st.markdown("---")
+
+if meta:
+    mlflow_url = f"http://localhost:5001/#/experiments/0/runs/{meta['mlflow_run_id']}"
+
+    st.caption(
+        f"Version: {meta['version']} • "
+        f"Best model: {meta['best_model']} • "
+        f"MLflow run: [{meta['mlflow_run_id'][:8]}...]({mlflow_url}) • "
+        f"Accuracy: {meta['metrics']['accuracy']:.3f}"
+    )
